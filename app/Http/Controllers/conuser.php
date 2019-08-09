@@ -28,7 +28,8 @@ class conuser extends Controller
         INNER JOIN catproductos AS c ON p.id_cat_producto = c.id_cat_producto
         INNER JOIN marcaproductos AS m ON p.id_marca = m.id_marca"); 
     
-        return view ('principal.index1')->with('productos',$res);
+        return view ('principal.index1')
+        ->with('productos',$res);
 
     }
 
@@ -62,7 +63,7 @@ class conuser extends Controller
         else{
           if($consulta[0]->deleted_at !="")
           {
-            Session::flash('error','El usuario esta desactivado. consulte a sua dministrador');
+            Session::flash('error','El usuario esta desactivado. consulte a su administrador');
             return redirect()->route('login');
           }
           else{

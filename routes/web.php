@@ -161,12 +161,13 @@ Route::get('/carritos','moservicio@carritos')->name('carritos');
 Route::get('/borraventass','moservicio@borraventass')->name('borraventass');
 
 //paypal
+Route::get('/pay', 'moproducto@pay')->name('pay');
 
 //payment form
-Route::get('/', 'PaymentController@index');
+Route::get('/pagos', 'PaymentController@index')->name('pagos');
 
 // route for processing payment
-Route::post('paypal', 'PaymentController@payWithpaypal');
+Route::post('paypal', 'PaymentController@payWithpaypal')->name('paypal');
 
 // route for check status of the payment
 Route::get('status', 'PaymentController@getPaymentStatus');

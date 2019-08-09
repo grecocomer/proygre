@@ -40,19 +40,23 @@ class PaymentController extends Controller
         $this->_api_context->setConfig($paypal_conf['settings']);
 
     }
+
     public function index()
     {
         return view('paywithpaypal');
     }
+
     public function payWithpaypal(Request $request)
     {
+        
 
         $payer = new Payer();
         $payer->setPaymentMethod('paypal');
 
         $item_1 = new Item();
 
-        $item_1->setName('Item 1') /** item name **/
+        $item_1
+            ->setName($request->get('dcp')) /** item name **/
             ->setCurrency('MXN')
             ->setQuantity(1)
             ->setPrice($request->get('amount')); /** unit price **/
@@ -67,7 +71,7 @@ class PaymentController extends Controller
         $transaction = new Transaction();
         $transaction->setAmount($amount)
             ->setItemList($item_list)
-            ->setDescription('Your transaction description');
+            ->setDescription('Descripción');
 
         $redirect_urls = new RedirectUrls();
         $redirect_urls->setReturnUrl(URL::to('status')) /** Specify return URL **/
@@ -87,13 +91,13 @@ class PaymentController extends Controller
 
             if (\Config::get('app.debug')) {
 
-                \Session::put('error', 'Connection timeout');
-                return Redirect::to('/');
+                \Session::put('error', 'El tiempo de conexión expiro');
+                return Redirect::to('/pagos');
 
             } else {
 
-                \Session::put('error', 'Some error occur, sorry for inconvenient');
-                return Redirect::to('/');
+                \Session::put('error', 'Se produjo algún error, disculpe las molestias');
+                return Redirect::to('/pagos');
 
             }
 
@@ -120,8 +124,8 @@ class PaymentController extends Controller
 
         }
 
-        \Session::put('error', 'Unknown error occurred');
-        return Redirect::to('/');
+        \Session::put('error', 'Se produjo un error desconocido.');
+        return Redirect::to('/pagos');
 
     }
 
@@ -134,8 +138,8 @@ class PaymentController extends Controller
         Session::forget('paypal_payment_id');
         if (empty(Input::get('PayerID')) || empty(Input::get('token'))) {
 
-            \Session::put('error', 'Payment failed');
-            return Redirect::to('/');
+            \Session::put('error', 'Pago fallido');
+            return Redirect::to('/venta');
 
         }
 
@@ -148,13 +152,13 @@ class PaymentController extends Controller
 
         if ($result->getState() == 'approved') {
 
-            \Session::put('success', 'Payment success');
-            return Redirect::to('/');
+            \Session::put('success', 'Pago realizado con exito.');
+            return Redirect::to('/venta');
 
         }
 
-        \Session::put('error', 'Payment failed');
-        return Redirect::to('/');
+        \Session::put('error', 'Pago fallido');
+        return Redirect::to('/venta');
 
     }
 

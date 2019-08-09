@@ -269,7 +269,8 @@
                                 <li><a href="altaempresa">Empresa</a></li>
                             </ul>
                         </li>
-                        @endif
+
+                         
                         <li class="nav-label">Reportes</li>
                         <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-envelope"></i><span class="hide-menu">Consultas</span></a>
                             <ul aria-expanded="false" class="collapse">
@@ -285,10 +286,35 @@
                         <li class="nav-label">Modulos Ventas</li>
                         <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-envelope"></i><span class="hide-menu">Ventas</span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="venta">Productos</a></li>
+                              <!--  <li><a href="venta">Productos</a></li> -->
                                 <li><a href="venta_s">Servicios</a></li>
                             </ul>
                         </li>
+
+                       @else
+
+                        
+                        <li class="nav-label">Reportes</li>
+                        <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-envelope"></i><span class="hide-menu">Consultas</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                          <!--      <li><a href="reporteclientes">Cliente</a></li>
+                                <li><a href="reporteempleado">Empleado</a></li>
+                                <li><a href="reporteproveedor">Proveedor</a></li>
+                                <li><a href="reporteservicio">Servicio</a></li>
+                                <li><a href="reporteproducto">Producto</a></li>
+                                <li><a href="reporteempresa">Empresa</a></li>-->
+                            </ul>
+                        </li>
+
+                        <li class="nav-label">Modulos Ventas</li>
+                        <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-envelope"></i><span class="hide-menu">Ventas</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="venta">Productos</a></li>
+                             <!--   <li><a href="venta_s">Servicios</a></li> -->
+                            </ul>
+                        </li>
+
+                        @endif
 <!--
                         <li class="nav-label">Features</li>
                         <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-suitcase"></i><span class="hide-menu">Bootstrap UI <span class="label label-rouded label-warning pull-right">6</span></span></a>

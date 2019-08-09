@@ -135,6 +135,7 @@ return view('modulos.producto.moproducto')
         vd.costo,
         vd.cantidad * vd.costo - vd.descuento AS subt,
         p.nombre_prod,
+        p.descripcion_prod AS dcp,
         p.Archivo
         FROM detalle_vp AS vd
         INNER JOIN productos AS p ON p.id_prod = vd.id_prod
@@ -147,14 +148,32 @@ return view('modulos.producto.moproducto')
        FROM detalle_vp
        WHERE id_vp = ?",[$request->id_vp]);
 
+        $resultado3=\DB::select("SELECT vd.id_vp,
+        vd.id_prod,
+        vd.cantidad,
+        vd.costo,
+        vd.cantidad * vd.costo - vd.descuento AS subt,
+        p.nombre_prod,
+        p.descripcion_prod AS dcp
+        FROM detalle_vp AS vd
+        INNER JOIN productos AS p ON p.id_prod = vd.id_prod
+        WHERE vd.id_vp= ?",[$request->id_vp]);
+
+
+    $resultado4=\DB::select("SELECT vd.id_vp,GROUP_CONCAT(vd.`cantidad`,' ',p.descripcion_prod,' ') AS dcp
+    FROM detalle_vp AS vd
+    INNER JOIN productos AS p ON p.id_prod = vd.id_prod
+    WHERE vd.id_vp= ?",[$request->id_vp]);
+
       /*  $resultado3=\DB::select("SELECT SUM(vp.`cantidad`) AS suca
         FROM detalle_vp AS vp
         WHERE id_vp  = ?",[$request->id_vp]);*/
     
        return view ('modulos.producto.listap')
        ->with('resultado',$resultado)
-       ->with('resultado2',$resultado2[0]);
-      // ->with('resultado3',$resultado3);
+       ->with('resultado3',$resultado3[0])
+       ->with('resultado2',$resultado2[0])
+       ->with('resultado4',$resultado4[0]);
     }
 
     public function borraventas(Request $request)
@@ -189,13 +208,19 @@ return view('modulos.producto.moproducto')
     FROM detalle_vp
     WHERE id_vp = ?",[$id_vp]);
 
+    $resultado4=\DB::select("SELECT vd.id_vp,GROUP_CONCAT(vd.`cantidad`,' ',p.descripcion_prod,' ') AS dcp
+    FROM detalle_vp AS vd
+    INNER JOIN productos AS p ON p.id_prod = vd.id_prod
+    WHERE vd.id_vp= ?",[$id_vp]);
+
   /* $resultado3=\DB::select("SELECT SUM(vp.`cantidad`) AS suca
     FROM detalle_vp AS vp
     WHERE id_vp  = ?",[$request->id_vp]);*/
         
        return view ('modulos.producto.listap')
        ->with('resultado',$resultado)
-     ->with('resultado2',$resultado2[0]);
+     ->with('resultado2',$resultado2[0])
+     ->with('resultado4',$resultado4[0]);
     // ->with('resultado3',$resultado3);
     }
 
