@@ -23,8 +23,9 @@
   var decimalLength = s.indexOf('.') + 1
   var numStr = s.substr(0, decimalLength + posiciones)
   return Number(numStr)
+  
 
- 
+         
             
 
         }    
@@ -64,88 +65,95 @@
 
             $("#cantidad").keyup(function() {
               
-            var Existencia;
+                var Existencia;
             var cantidad;
             Existencia = parseInt($("#Existencia").val());
             cantidad = parseInt($("#cantidad").val());
-            if (cantidad>Existencia  || Existencia =='0' || cantidad =='0')
+ 
+            if (cantidad >Existencia )
             {
 
           $("#status").html('<div class="alert alert-danger" id="no" role="alert"><h6 class="alert-heading">No se puede</h6></div>  '); 
-          $('#agrega').attr("disabled", true);
           $('#subt').val(0);
-          $('#descuento1').attr("disabled", true);
-          $('#descuento2').attr("disabled", true);
-          $('#descuento3').attr("disabled", true);
-        
-            
-            
+          $('#agrega').attr("disabled", true);
+
+         
+         
             }
+
+          else  if($("#cantidad").val() =='')
+        {
+            $('#agrega').attr("disabled", true);
+            $("#no").remove();
+            $("#si").remove();
+            $('#subt').val(0);
+            $("#des").val(parseInt($("#subt").val())*0,3);
+            $("#subto").val($("#subt").val()-$("#des").val());
+            
+            
+        }
+
             else
             {
                 $("#status").html('<div class="alert alert-success" id="si" role="alert"><h6 class="alert-heading">Si se puede</h6></div>  '); 
     
                 $('#subt').val( $("#costo").val() * $("#cantidad").val());
-                $('#descuento1').attr("disabled", false);
-                $('#descuento2').attr("disabled", false);
-                $('#descuento3').attr("disabled", false);
+            
 
       
               
             }
-        if($('#cantidad').val()== "")
-        {
-            $('#agrega').attr("disabled", true);
-            $("#no").remove();
-            $("#si").remove();
-            $('#subt').val("");
-            $('#subto').val("");
-            $('#des').val("");
-            $('#descuento1').attr("disabled", true);
-            $('#descuento2').attr("disabled", true);
-            $('#descuento3').attr("disabled", true);
-            
-        }
-
+      
         
 
       
         
        });
 
+       
+
+       $("#cantidad").keyup(function() {
+
+       
+        var Existencia;
+            var cantidad;
+            Existencia = parseInt($("#Existencia").val());
+            cantidad = parseInt($("#cantidad").val());
       
-       $("input[name=descuento]").click(function () {
-        switch ($('input:radio[name=descuento]:checked').val()) { 
-	    case '0': 
-          $("#des").val(parseInt($("#subt").val())*0,6);
-          $('#agrega').attr("disabled", false);
-		break;
-		case '10': 
+        if(cantidad >= 100 && cantidad <1000)
+        {
           $("#des").val(trunc(parseInt($("#subt").val())*0.10,6));
           $('#agrega').attr("disabled", false);
-		break;
-	    case '30': 
+          $("#subto").val($("#subt").val()-$("#des").val());
+          
+        }
+        else if (cantidad >= 1000 && cantidad <= Existencia)
+        {
           $("#des").val(trunc(parseInt($("#subt").val())*0.30,6));
-          $('#agrega').attr("disabled", false);
-		break;
-          }
-        });
-        
+          $('#agrega').attr("disabled", false); 
+          $("#subto").val($("#subt").val()-$("#des").val());
+        }
+
+        else if (cantidad >0 && cantidad <100)
+        {
+            
+            $("#des").val(parseInt($("#subt").val())*0,3);
+            $("#subto").val($("#subt").val()-$("#des").val());
+            $('#agrega').attr("disabled", false); 
+
+        }
 
 
-    
-      $("input[name=descuento]").click(function () {
-        switch ($('input:radio[name=descuento]:checked').val()) { 
-      case '0': 
-          $("#subto").val($("#subt").val()-$("#des").val());
-    break;
-    case '10': 
-          $("#subto").val($("#subt").val()-$("#des").val());
-    break;
-      case '30': 
-         $("#subto").val($("#subt").val()-$("#des").val());
-    break;
-          }
+        else
+        {
+            $("#des").val(parseInt($("#subt").val())*0,3);
+            $("#subto").val($("#subt").val()-$("#des").val());
+          
+       
+
+        }
+      
+      
         });
 
        $("#agrega").click(function() {
@@ -364,13 +372,6 @@
                   
                     
               
-                <br>
-                <div id="rad" class="mx-auto" style="width: 200px;" >
-                <label for="">Descuento:</label>
-            <input type = 'radio' value = '0' name = 'descuento' id = 'descuento1'  disabled= 'false' checked>0%
-            <input type = 'radio' value = '10' name = 'descuento' id = 'descuento2' disabled= 'false'>10%
-            <input type = 'radio' value = '30' name = 'descuento' id = 'descuento3' disabled= 'false'>30%
-		     </div>
                 <br>
                
                     <button type="button" class="btn btn-primary btn-lg btn-block" name = "agrega" id="agrega" disabled= 'false'>Agrega Carrito</button>
