@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/jeje', function () {
+Route::get('/', function () {
     return view('welcome');
 });
 
@@ -140,7 +140,7 @@ Route::get('/restaurarem/{id_empresa}', 'conempresa@restaurarem')->name('restaur
 
 
 //rutas del login
-route::get('/','conuser@login')->name('login');
+route::get('/login','conuser@login')->name('login');
 Route::POST('/validalogin','conuser@validalogin')->name('validalogin');
 Route::get('/principal','conuser@principal')->name('principal');
 Route::get('/cerrarsesion','conuser@cerrarsesion');

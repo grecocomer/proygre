@@ -80,6 +80,13 @@
   <br>
 
   <header class="masthead">
+<br>
+  <div class="intro-lead-in">
+      <h2>Comercializadora Greco</h2>
+    </div>
+
+    <center><iframe src="https://comercializadora-9f0d5.firebaseapp.com/" width="1200" height="800"> </iframe></center>
+
 
     <div class="slider">
       <link href="{{asset('Carrusel/css/slider.css')}}" rel="stylesheet">
@@ -94,9 +101,7 @@
       </ul>
     </div>
 
-    <div class="intro-lead-in">
-      <h2>Comercializadora Greco</h2>
-    </div>
+  
     <div class="intro-heading text-uppercase">Encontraras el mejor Servicio y Herramientas</div>
   </header>
 
