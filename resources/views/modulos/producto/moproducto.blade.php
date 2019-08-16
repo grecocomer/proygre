@@ -125,6 +125,8 @@
           $("#des").val(trunc(parseInt($("#subt").val())*0.10,6));
           $('#agrega').attr("disabled", false);
           $("#subto").val($("#subt").val()-$("#des").val());
+          $("#status").html('<div class="alert alert-success" id="si" role="alert"><h6 class="alert-heading">Descuento del 10%</h6></div>  '); 
+
           
         }
         else if (cantidad >= 1000 && cantidad <= Existencia)
@@ -132,6 +134,8 @@
           $("#des").val(trunc(parseInt($("#subt").val())*0.30,6));
           $('#agrega').attr("disabled", false); 
           $("#subto").val($("#subt").val()-$("#des").val());
+          $("#status").html('<div class="alert alert-success" id="si" role="alert"><h6 class="alert-heading">Descuento del 30%</h6></div>  '); 
+
         }
 
         else if (cantidad >0 && cantidad <100)
@@ -174,16 +178,24 @@
 
 		
        });
- 
-
 
       
-    
-
 		});
 
 
-	</script>
+    </script>
+    
+    <script>
+function cambia_de_pagina(){
+
+    location.href="{{ route('principal') }}"
+}
+</script>
+
+
+
+
+
  <!--mensajes-->
 
 @if ($message = Session::get('success'))
@@ -227,8 +239,14 @@
     <div class="container mt-4 " >
         <div class="card">
             <div class="card-header">
-                Modulos Productos
+                
+                Modulos Productos  
+
+<button type="button" class="btn btn-outline-danger" onclick="javascript:cambia_de_pagina();"  style="float: right;" name="cerrar" id="cerrar">X</button>
             </div>
+            
+            
+            
 <form>
             <div class="card-body">
 

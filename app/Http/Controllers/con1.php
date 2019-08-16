@@ -658,7 +658,7 @@ public function reporteproducto()
 
     //consulta para hacer uns multiconsulta de varias tablas                       
  
-   /** $res=\DB::select("SELECT p.id_prod, 
+   /* $res=\DB::select("SELECT p.id_prod, 
     p.nombre_prod, 
     p.archivo, 
     p.descripcion_prod, 

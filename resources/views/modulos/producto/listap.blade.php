@@ -142,7 +142,7 @@ td   { text-align: center; }
 
           
      
-
+<input  class="form-control"   id="id"  value="{{Session::get('sesionidu')}}" type="hidden" name='id'>
 <input  class="form-control"   id="dcp"  value="{{$resultado4->dcp}}" type="hidden" name='dcp'>
 <input  class="form-control" placeholder="Cantidad..." id="amount"  value="{{$resultado2->total}}" type="hidden" name='amount'>
 

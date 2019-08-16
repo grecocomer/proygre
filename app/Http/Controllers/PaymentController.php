@@ -2,6 +2,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
+use App\Http\Requests;
+
+use App\pagos;
+
 use Illuminate\Support\Facades\Input;
 use PayPal\Api\Amount;
 use PayPal\Api\Details;
@@ -19,6 +24,9 @@ use PayPal\Rest\ApiContext;
 use Redirect;
 use Session;
 use URL;
+use Carbon\Carbon;
+
+
 
 class PaymentController extends Controller
 {
@@ -43,7 +51,7 @@ class PaymentController extends Controller
 
     public function index()
     {
-        return view('paywithpaypal');
+        return view('venta');
     }
 
     public function payWithpaypal(Request $request)
@@ -52,6 +60,9 @@ class PaymentController extends Controller
 
         $payer = new Payer();
         $payer->setPaymentMethod('paypal');
+        $metod=$payer;
+        
+
 
         $item_1 = new Item();
 
@@ -76,28 +87,38 @@ class PaymentController extends Controller
         $redirect_urls = new RedirectUrls();
         $redirect_urls->setReturnUrl(URL::to('status')) /** Specify return URL **/
             ->setCancelUrl(URL::to('status'));
+            
 
         $payment = new Payment();
         $payment->setIntent('Sale')
             ->setPayer($payer)
             ->setRedirectUrls($redirect_urls)
             ->setTransactions(array($transaction));
+            $metod=('paypal');
+
+            /** add payment ID to session **/
+        
+
+           
+            
         /** dd($payment->create($this->_api_context));exit; **/
         try {
-
+ 
             $payment->create($this->_api_context);
+
+            
 
         } catch (\PayPal\Exception\PPConnectionException $ex) {
 
             if (\Config::get('app.debug')) {
 
                 \Session::put('error', 'El tiempo de conexión expiro');
-                return Redirect::to('/pagos');
+                return Redirect::to('/venta');
 
             } else {
 
                 \Session::put('error', 'Se produjo algún error, disculpe las molestias');
-                return Redirect::to('/pagos');
+                return Redirect::to('/venta');
 
             }
 
@@ -106,7 +127,7 @@ class PaymentController extends Controller
         foreach ($payment->getLinks() as $link) {
 
             if ($link->getRel() == 'approval_url') {
-
+                
                 $redirect_url = $link->getHref();
                 break;
 
@@ -118,6 +139,21 @@ class PaymentController extends Controller
         Session::put('paypal_payment_id', $payment->getId());
 
         if (isset($redirect_url)) {
+            
+            $date = Carbon::now();
+            $date = $date->format('Y-m-d');
+
+            $count =0;
+            $pagos = new pagos;
+            $pagos->idg = $count++;
+            $pagos->idc = $request->get('id');
+            $pagos->payment_id = $payment->getId();
+            $pagos->preciot = $request->get('amount');
+            $pagos->descripcion = $request->get('dcp');
+            $pagos->fecha = $date;
+            $pagos->metodo = $metod;
+            $pagos->status = 'Aprovado';
+            $pagos->save();
 
             /** redirect to paypal **/
             return Redirect::away($redirect_url);
@@ -125,7 +161,7 @@ class PaymentController extends Controller
         }
 
         \Session::put('error', 'Se produjo un error desconocido.');
-        return Redirect::to('/pagos');
+        return Redirect::to('/venta');
 
     }
 
@@ -137,9 +173,12 @@ class PaymentController extends Controller
         /** clear the session payment ID **/
         Session::forget('paypal_payment_id');
         if (empty(Input::get('PayerID')) || empty(Input::get('token'))) {
-
+           
+            $deleted =\DB::delete("DELETE from pagos ORDER BY idg DESC
+        LIMIT 1");
             \Session::put('error', 'Pago fallido');
-            return Redirect::to('/venta');
+            return Redirect::to('/venta')
+            ->with('deleted',$deleted);
 
         }
 
@@ -147,19 +186,30 @@ class PaymentController extends Controller
         $execution = new PaymentExecution();
         $execution->setPayerId(Input::get('PayerID'));
 
+        
+
         /**Execute the payment **/
         $result = $payment->execute($execution, $this->_api_context);
 
+            
+
         if ($result->getState() == 'approved') {
 
+            
+
             \Session::put('success', 'Pago realizado con exito.');
-            return Redirect::to('/venta');
+            return Redirect::to('/reportepay');
+
+            
 
         }
 
         \Session::put('error', 'Pago fallido');
+
+        
         return Redirect::to('/venta');
 
     }
 
 }
+

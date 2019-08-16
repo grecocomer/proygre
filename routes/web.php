@@ -16,6 +16,11 @@ Route::get('/jeje', function () {
 });
 
 
+Route::get('/det', function () {
+    return view('modulos.producto.detalles');
+});
+
+
 //paginas de productos
 route::get('/limpieza','con1@limpieza')->name('limpieza');
 route::get('/seguridad','con1@seguridad')->name('seguridad');
@@ -172,3 +177,8 @@ Route::post('paypal', 'PaymentController@payWithpaypal')->name('paypal');
 // route for check status of the payment
 Route::get('status', 'PaymentController@getPaymentStatus');
 
+// ruta para reporte
+Route::get('/reportepay', 'moproducto@reportepay')->name('reportepay');
+
+//mostrar detalles
+Route::get('/detalles/{idg}', 'moproducto@detalles')->name('detalles');

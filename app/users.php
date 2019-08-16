@@ -10,7 +10,7 @@ class users extends Model
     use SoftDeletes;
 
     protected $primaryKey = 'id_user';
-    protected $fillable = ['id_user','nombre_user','contrasena','correo','tipo_user'];
+    protected $fillable = ['id_user','nombre_user','ncompleto','tel','contrasena','correo','direccion','tipo_user'];
 
     protected $date=['deleted_at'];
 }

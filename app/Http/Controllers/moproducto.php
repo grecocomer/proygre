@@ -13,6 +13,8 @@ use App\ventasp;
 use App\clientes;
 use App\estados;
 use App\users;
+use App\pagos;
+use Session; 
 use Carbon\Carbon;
 
 class moproducto extends Controller
@@ -238,5 +240,57 @@ return view('modulos.producto.moproducto')
 
     
     }
+
+    //muestra los datos de los clientes
+    public function reportepay()
+    {
+      if(Session::get('sesionidu')!="")
+		{
+    //  $clientes = clientes::orderBy('nombrecli','asc')->get();
+    // return view ('cliente.reportecli')->with('clientes',$clientes);
     
+      $res=\DB::select("SELECT p.`idg`AS idg,u.`nombre_user` AS nombre,u.`correo` AS email,u.`ncompleto` AS nco,u.`tel` AS tel,u.`direccion` AS direc,p.`payment_id` AS payment_id,p.`preciot` AS precio,
+      p.`descripcion` AS descr,p.`fecha` AS fecha,p.`metodo` AS me,p.`status` AS sta
+      FROM pagos AS p
+      INNER JOIN users AS u ON u.`id_user`=p.`idc`
+      WHERE p.`idc` =?",[Session::get('sesionidu')]);
+
+      $pagos=\DB::select("SELECT p.`idg`AS idg,u.`nombre_user` AS nombre,u.`correo` AS email,u.`ncompleto` AS nco,u.`tel` AS tel,u.`direccion` AS direc,p.`payment_id` AS payment_id,p.`preciot` AS precio,
+      p.`descripcion` AS descr,p.`fecha` AS fecha,p.`metodo` AS me,p.`status` AS sta
+      FROM pagos AS p
+      INNER JOIN users AS u ON u.`id_user`=p.`idc`
+      WHERE p.`idc` =?",[Session::get('sesionidu')]);
+
+   //   rutas para mandar a llamar la vista 1.-carpeta 2.-nombre de la vista
+     return view ('modulos.producto.pagoscli')
+     ->with('pagos',$pagos[0])
+     ->with('res',$res);
+    }
+    else
+    {
+      Session::flash('error', 'El usuario esta desactivado, favor de consultar a su administrador');
+     return redirect()->route('login');
+    }
+    }
+
+
+    
+    function detalles($idg)
+    {
+
+        $res=\DB::select("SELECT p.`idg`AS idg,u.`nombre_user` AS nombre,u.`correo` AS email,u.`ncompleto` AS nco,u.`tel` AS tel,u.`direccion` AS direc,p.`payment_id` AS payment_id,p.`preciot` AS precio,
+        p.`descripcion` AS descr,p.`fecha` AS fecha,p.`metodo` AS me,p.`status` AS sta
+        FROM pagos AS p
+        INNER JOIN users AS u ON u.`id_user`=p.`idc`
+        WHERE p.`idc` =?",[Session::get('sesionidu')]);
+
+         $pagos = pagos::where('idg','=',$idg)->get();
+
+        // echo $pagos;
+         return view ('modulos.producto.detalles')
+          ->with('pagos',$pagos[0])
+          ->with('res',$res[0]);
+
+    }
 }
+

@@ -297,12 +297,8 @@
                         <li class="nav-label">Reportes</li>
                         <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-envelope"></i><span class="hide-menu">Consultas</span></a>
                             <ul aria-expanded="false" class="collapse">
-                          <!--      <li><a href="reporteclientes">Cliente</a></li>
-                                <li><a href="reporteempleado">Empleado</a></li>
-                                <li><a href="reporteproveedor">Proveedor</a></li>
-                                <li><a href="reporteservicio">Servicio</a></li>
-                                <li><a href="reporteproducto">Producto</a></li>
-                                <li><a href="reporteempresa">Empresa</a></li>-->
+                            <li><a href="reportepay">Historial</a></li>
+                               
                             </ul>
                         </li>
 
