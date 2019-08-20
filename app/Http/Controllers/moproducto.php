@@ -16,6 +16,7 @@ use App\users;
 use App\pagos;
 use Session; 
 use Carbon\Carbon;
+use DB;
 
 class moproducto extends Controller
 {

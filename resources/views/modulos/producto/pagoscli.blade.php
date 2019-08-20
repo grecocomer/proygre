@@ -110,7 +110,7 @@
                                     <td>{{$rc->payment_id}}</td>
                                     <td>{{$rc->precio}}</td>
                                     <td>{{$rc->me}}</td>
-                                    @if($rc->sta=="Aprovado")
+                                    @if($rc->sta=="Aprobado")
 <td><span class="badge badge-pill badge-success">  {{$rc->sta}} </span></td>
 @else
 <td><span class="badge badge-pill badge-info"> {{$rc->sta}}  </span></td>

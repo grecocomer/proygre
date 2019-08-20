@@ -182,3 +182,16 @@ Route::get('/reportepay', 'moproducto@reportepay')->name('reportepay');
 
 //mostrar detalles
 Route::get('/detalles/{idg}', 'moproducto@detalles')->name('detalles');
+
+//buscador ya no
+//Route::get('/buscador','SearchController@index');
+//Route::get('/search','SearchController@search');
+
+
+//buscador ya si
+
+Route::get('/buscador','buscador@index');
+Route::get('/combopago','buscador@combopago')->name('combopago');
+Route::get('/descripcion','buscador@descripcion')->name('descripcion');
+Route::get('/modistatus','buscador@modistatus')->name('modistatus');
+

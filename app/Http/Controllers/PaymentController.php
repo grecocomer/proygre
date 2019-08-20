@@ -152,7 +152,7 @@ class PaymentController extends Controller
             $pagos->descripcion = $request->get('dcp');
             $pagos->fecha = $date;
             $pagos->metodo = $metod;
-            $pagos->status = 'Aprovado';
+            $pagos->status = 'Aprobado';
             $pagos->save();
 
             /** redirect to paypal **/

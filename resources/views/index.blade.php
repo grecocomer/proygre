@@ -287,7 +287,7 @@
                         <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-envelope"></i><span class="hide-menu">Ventas</span></a>
                             <ul aria-expanded="false" class="collapse">
                               <!--  <li><a href="venta">Productos</a></li> -->
-                                <li><a href="venta_s">Servicios</a></li>
+                              <li><a href="buscador">Reportes</a></li>
                             </ul>
                         </li>
 
