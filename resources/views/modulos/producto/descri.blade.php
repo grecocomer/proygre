@@ -12,6 +12,10 @@ Productos: * {{$pagos->descr}} *
 Dirección de Envio: * {{$pagos->direc}} *
 
 Datos del comprador: * {{$pagos->email}}  ,  {{$pagos->tel}} *
+
+Estado de la venta: * {{$pagos->sta}}*
+
+
     
     </textarea>
   </div>
