@@ -7,11 +7,16 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\catservicios;
 use App\servicios;
+use App\empresas;
 use App\empleados;
+use App\municipios;
 use App\detalle_vs;
 use App\users;
 use App\ventass;
+use App\cotizaciones;
 use Carbon\Carbon;
+use Session; 
+use DB;
 
 class moservicio extends Controller
 {
@@ -157,5 +162,251 @@ class moservicio extends Controller
        ->with('resultado',$resultado)
      ->with('resultado2',$resultado2[0]);
     }
+
+
+    public function cotizacion()
+    {
+        
+        $clavequesigue = cotizaciones::orderBy('idc','desc')
+        ->take(1)->get();
+        $cuantos = count($clavequesigue);
+        if($cuantos==0)
+        {
+        $idc= 1;
+        }
+        else
+        {
+        $idc = $clavequesigue[0]->idc+1;   
+        }
+        $empresas=empresas::all();
+        $municipios=municipios::all();
+
+        $cotizaciones=\DB::select("SELECT co.`idc`,co.`id_user`,u.`ncompleto`,co.`telefono`,co.`emal`,em.`nombre_empresa`,s.`nombre_ser`,co.`costo`
+        FROM cotizaciones AS co
+        INNER JOIN empresas AS em ON em.`id_empresa`=co.`empresa`
+        INNER JOIN users AS u ON u.`id_user`=co.`id_user`
+        INNER JOIN servicios AS s ON s.`id_ser`=co.`servicio`
+        WHERE co.id_user = ?",[Session::get('sesionidu')]);
+
+       $returnd=\DB::select("SELECT co.`idc`,co.`id_user`,u.`ncompleto`,co.`telefono`,co.`emal`,em.`nombre_empresa`,s.`nombre_ser`,co.`costo`,co.cliente
+        FROM cotizaciones AS co
+        INNER JOIN empresas AS em ON em.`id_empresa`=co.`empresa`
+        INNER JOIN users AS u ON u.`id_user`=co.`id_user`
+        INNER JOIN servicios AS s ON s.`id_ser`=co.`servicio`
+        WHERE co.id_user = ?",[Session::get('sesionidu')]);
+
+       
+
+        $fecha_venta=carbon::now();
+        return view('modulos.servicios.cotizar')
+        ->with('idc',$idc)
+        ->with('empresas',$empresas)
+        ->with('municipios',$municipios)
+        ->with('cotizaciones',$cotizaciones)
+        ->with('returnd',$returnd[0])
+        ->with('fecha_venta',$fecha_venta->toDateString());
+
+
+    }
+
+
+    function comboemp(Request $request)
+       {
+            $id_empresa = $request->get('id_empresa');
+            $servicios = servicios::where('id_empresa','=',$id_empresa)->get();
+            return view ('modulos.servicios.comp')
+            ->with('servicios',$servicios);
+       }
+
+       function detalls(Request $request)
+       {
+
+        
+       
+           // todo esto sirve para mostrar los detalles del producto pero en marca solo muestra el id
+          $id_ser = $request->get('id_ser');
+          //  $nom_marca = $request->get('nom_marca');
+         $servicios = servicios::where('id_ser','=',$id_ser)->get();
+          //  $marcaproductos = marcaproductos::where('nom_marca','=',$nom_marca)->get();
+
+         return view ('modulos.servicios.detallerser')
+         ->with('servicios',$servicios[0]);
+           // ->with('nom_marca',$nom_marca);
+
+           // todo esto sirve para mostrar los detalles del producto pero en marca muestra el nombre
+
+      
+   
+       
+       }
+
+
+       function detallc(Request $request)
+       {
+
+        
+       
+           // todo esto sirve para mostrar los detalles del producto pero en marca solo muestra el id
+          $idm = $request->get('idm');
+          //  $nom_marca = $request->get('nom_marca');
+         $municipios = municipios::where('idm','=',$idm)->get();
+          //  $marcaproductos = marcaproductos::where('nom_marca','=',$nom_marca)->get();
+
+         return view ('modulos.servicios.detallepro')
+         ->with('municipios',$municipios[0]);
+           // ->with('nom_marca',$nom_marca);
+
+           // todo esto sirve para mostrar los detalles del producto pero en marca muestra el nombre
+
+      
+   
+       
+       }
+
+       
+       function carrico(Request $request)
+    {
+	
+        
+            $coti = new cotizaciones;
+            $coti->idc ="";
+            $coti->id_user =$request->idcl;
+            $coti->cliente= $request->nom;
+            $coti->telefono = $request->tel;
+            $coti->emal = $request->ema;
+            $coti->empresa = $request->id_empresa;
+            $coti->servicio = $request->id_ser;
+            $coti->municipio = $request->idm;
+            $coti->costo = $request->total;
+            $coti->save();
+        }
+
+
+        function detallecoti(Request $request)
+       {
+
+        
+       
+           // todo esto sirve para mostrar los detalles del producto pero en marca solo muestra el id
+          $idc = $request->get('idc');
+          //  $nom_marca = $request->get('nom_marca');
+
+         $cotizaciones=\DB::select("SELECT co.`idc`,co.`id_user`,em.id_empresa,s.id_ser,u.`ncompleto`,co.`telefono`,co.`emal`,em.`nombre_empresa`,
+         s.`nombre_ser`,co.`costo`,mun.idm,mun.nombre,s.costo as scosto,mun.costo as mcosto
+        FROM cotizaciones AS co
+        INNER JOIN empresas AS em ON em.`id_empresa`=co.`empresa`
+        INNER JOIN users AS u ON u.`id_user`=co.`id_user`
+        INNER JOIN servicios AS s ON s.`id_ser`=co.`servicio`
+        INNER JOIN municipios as mun ON mun.idm=co.municipio
+        WHERE co.idc = ?",[$idc]);
+          //  $marcaproductos = marcaproductos::where('nom_marca','=',$nom_marca)->get();
+          $fecha_venta=carbon::now();
+          
+          $empresas=empresas::all();
+          $municipios=municipios::all();
+
+         return view ('modulos.servicios.detallecoti')
+         ->with('cotizaciones',$cotizaciones[0])
+         ->with('empresas',$empresas)
+         ->with('municipios',$municipios)
+         ->with('fecha_venta',$fecha_venta->toDateString());
+           // ->with('nom_marca',$nom_marca);
+
+           // todo esto sirve para mostrar los detalles del producto pero en marca muestra el nombre
+
+      
+   
+       
+       }
+
+
+       function comboemp2(Request $request)
+       {
+            $id_empresa1 = $request->get('id_empresa1');
+            $servicios = servicios::where('id_empresa','=',$id_empresa1)->get();
+            return view ('modulos.servicios.comp2')
+            ->with('servicios',$servicios);
+       }
+
+
+       function detalls2(Request $request)
+       {
+
+        
+       
+           // todo esto sirve para mostrar los detalles del producto pero en marca solo muestra el id
+          $id_ser1 = $request->get('id_ser1');
+          //  $nom_marca = $request->get('nom_marca');
+         $servicios = servicios::where('id_ser','=',$id_ser1)->get();
+          //  $marcaproductos = marcaproductos::where('nom_marca','=',$nom_marca)->get();
+
+         return view ('modulos.servicios.detalleser2')
+         ->with('servicios',$servicios[0]);
+           // ->with('nom_marca',$nom_marca);
+
+           // todo esto sirve para mostrar los detalles del producto pero en marca muestra el nombre
+
+      
+   
+       
+       }
+
+
+       function detallc2(Request $request)
+       {
+
+        
+       
+           // todo esto sirve para mostrar los detalles del producto pero en marca solo muestra el id
+          $idm1 = $request->get('idm1');
+          //  $nom_marca = $request->get('nom_marca');
+         $municipios = municipios::where('idm','=',$idm1)->get();
+          //  $marcaproductos = marcaproductos::where('nom_marca','=',$nom_marca)->get();
+
+         return view ('modulos.servicios.detallepro2')
+         ->with('municipios',$municipios[0]);
+           // ->with('nom_marca',$nom_marca);
+
+           // todo esto sirve para mostrar los detalles del producto pero en marca muestra el nombre
+
+      
+   
+       
+       }
+
+
+         
+       function updateco(Request $request)
+    {
     
-}
+        
+        $idc=$request->idc1;
+        
+
+     //   $modifi =\DB::update("UPDATE cotizaciones SET pagos.`status`='Entregado' 
+     //   WHERE idc= ?",[$request->idc1]);
+
+
+            // insertar datos 
+
+            $coti = cotizaciones::find($idc);
+            $coti->id_user =$request->idcl1;
+            $coti->cliente= $request->nom1;
+            $coti->telefono = $request->tel1;
+            $coti->emal = $request->ema1;
+            $coti->empresa = $request->id_empresa1;
+            $coti->servicio = $request->id_ser1;
+            $coti->municipio = $request->idm1;
+            $coti->costo = $request->total1;
+            $coti->save();
+                
+
+
+        }
+
+
+
+       
+    }
+    
+

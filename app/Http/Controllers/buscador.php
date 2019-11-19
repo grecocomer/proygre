@@ -23,7 +23,7 @@ class buscador extends Controller
     function combopago(Request $request)
     {
          $iduser = $request->get('iduser');
-         $pagos =DB::table('pagoscli')->Where('idc','=',$iduser)->get();
+         $pagos =DB::table('pagos')->Where('idc','=',$iduser)->get();
          return view ('modulos.producto.muestrapagos')
          ->with('pagos',$pagos);
          

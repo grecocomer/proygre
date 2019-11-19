@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-
+ 
   <title>COMERCIALIZADORA GRECO</title>
 
   <!-- Bootstrap core CSS -->
@@ -25,11 +25,15 @@
 
 </head>
 
+<script type="text/javascript" async
+src="//l.getsitecontrol.com/g4d88kwj.js">
+</script>   
+
 <body id="page-top">
 
   <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
     <div class="container">
-      <img width="50" height="50" src="nuevos/img/2847e4bf-9cf9-4379-889d-c9c5c7fc700c.jpg">
+      <img width="50" height="50" src="nuevos/img/2847e4bf-9cf9-4379-889d-c9c5c7fc700c.jpg" >
       <a class="navbar-brand js-scroll-trigger" href="#page-top">GRECO</a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive"
         aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -82,28 +86,38 @@
   <header class="masthead">
 <br>
   <div class="intro-lead-in">
-      <h2>Comercializadora Greco</h2>
+      <h1>Comercializadora Greco</h1>
+      <h6>Todo en un mismo lugar </h2>
     </div>
 
-    <center><iframe src="https://comercializadora-9f0d5.firebaseapp.com/" width="1200" height="800"> </iframe></center>
-
+  
 
     <div class="slider">
       <link href="{{asset('Carrusel/css/slider.css')}}" rel="stylesheet">
 
       <ul>
-        <li><img width="350" height="550" src="Carrusel/img/875warehouse.jpg" alt=""></li>
-        <li><img width="350" height="550" src="Carrusel/img/avant-parque-industrial-tlajomulco-2017-bodegas.jpg" alt=""></li>
-        <li><img width="350" height="550" src="Carrusel/img/shutterstock_89041162.jpg" alt=""></li>
-        <li><img width="350" height="550" src="Carrusel/img/2-centros-de-distribucion-735x400.jpg" alt=""></li>
+        <li><img width="350" height="550" src="Carrusel/img/875warehouse.jpg" alt="Comercializadora"></li>
+        <li><img width="350" height="550" src="Carrusel/img/avant-parque-industrial-tlajomulco-2017-bodegas.jpg" alt="Bodegas industriales"></li>
+        <li><img width="350" height="550" src="Carrusel/img/shutterstock_89041162.jpg" alt="Equipo y productos"></li>
+        <li><img width="350" height="550" src="Carrusel/img/2-centros-de-distribucion-735x400.jpg" alt="Centros de Distribución"></li>
 
 
       </ul>
     </div>
 
   
-    <div class="intro-heading text-uppercase">Encontraras el mejor Servicio y Herramientas</div>
-  </header>
+    <div class="intro-heading text-uppercase"><strong> Greco SA.DE.CV.</strong><br>
+
+    
+   
+  <q>
+
+      En esta época de globalización comercial, de diversificación ya sea de mercados o de productos, resulta la estrategia principal para poder competir con otros países que elaboran y venden productos similares o iguales a los nuestros el exportar lo que México produce. Es por eso que nos permitimos distraer su atención para darles a conocer nuestra Empresa, misma que se crea en atención a la necesidad manifiesta de nuestros clientes de contar con un departamento de comercialización que los contacte y represente ante los posibles y diversos proveedores y consumidores, ya sea en México o en otros países con los que se mantienen relaciones comerciales.
+      
+      Contamos con la experiencia y el personal necesario para brindarle una asesoría y orientación al exportador proporcionándole estudios y perfiles de productos y mercados similares y con información crucial para el objetivo de los mismos, como pueden ser los posibles nichos y nuevas tendencias de mercado con la finalidad de que realicen sus ventas en los productos y sectores de su interés.
+    
+  </q>
+    </header>
 
 
   <!-- Services -->
@@ -159,7 +173,7 @@
           <div class="col-md-4 col-sm-6 portfolio-item">
               <div class="portfolio-hover">
               </div>
-              <img width="350" height="350" style="width: 20rem;" class="img-fluid" src="nuevos/img/portfolio/01-thumbnail.jpg" alt="">
+              <img width="350" height="350" style="width: 20rem;" class="img-fluid" src="nuevos/img/portfolio/01-thumbnail.jpg" alt="Limpieza">
             <div class="portfolio-caption">
               <h4>Equipo de Limpieza</h4>
               <p class="text-muted">Equipo para la protección de salud.</p>
@@ -317,7 +331,7 @@
                   <h4>Objetivos</h4>
                 </div>
                 <div class="timeline-body">
-                  <p class="text-muted">La Comercializadora Greco cubrira las necesidades del mercado, abarcando las
+                  <p class="text-muted">Comercializadora Greco cubrira las necesidades del mercado, abarcando las
                     necesidades de los consumidores y dando
                     una identidad a cada uno de ellos, Alimentar tanto nuestra creatividad como la de nuestros clientes
                     permitiendo la contribución de aportes y así
@@ -397,7 +411,7 @@
                 <h2 class="section-heading text-uppercase">Acerca de</h2>
                 <h2 class="section-heading text-white">Comercializadora Greco</h2>
                 <hr class="light my-4">
-                <p class="text-faded mb-4">Aqui encontras los mejores Servicios y Productos para tu Empresa.
+                <p class="text-faded mb-4">Encuentra  los mejores Servicios y Productos para tu Empresa.
                   Comercializadora GRECO inicia operaciones en el año 2013, entre ellas, optimización, desarrollo,
                   producción y comercialización de insumos para la salud, equipo de limpieza, equipo de seguridad
                   ,alimentos de alta especialidad, tuberias de todo tipo, herramientas, ya que actuamos
@@ -442,6 +456,10 @@
               </div>
             </div>
           </div>
+          <script type="text/javascript" async
+          src="//l.getsitecontrol.com/g4d88kwj.js">
+        </script>
+   
         </footer>
 
         <!-- Detalles de la Galeria -->
@@ -524,6 +542,8 @@
 
     <!-- Custom scripts for this template -->
     <script src="{{asset('nuevos2/js/agency.min.js')}}"></script>
+
+
 
 </body>
 

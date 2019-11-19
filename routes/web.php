@@ -195,3 +195,17 @@ Route::get('/combopago','buscador@combopago')->name('combopago');
 Route::get('/descripcion','buscador@descripcion')->name('descripcion');
 Route::get('/modistatus','buscador@modistatus')->name('modistatus');
 
+
+//modulo cotización
+Route::get('/cotizacion', 'moservicio@cotizacion')->name('cotizacion');
+Route::get('/comboemp','moservicio@comboemp')->name('comboemp');
+Route::get('/detalls','moservicio@detalls')->name('detalls');
+Route::get('/detallc','moservicio@detallc')->name('detallc');
+Route::get('/carrico','moservicio@carrico')->name('carrico');
+//modificar
+Route::get('/detallecoti','moservicio@detallecoti')->name('detallecoti');
+Route::get('/detalls2','moservicio@detalls2')->name('detalls2');
+Route::get('/detallc2','moservicio@detallc2')->name('detallc2');
+Route::get('/comboemp2','moservicio@comboemp2')->name('comboemp2');
+Route::get('/updateco','moservicio@updateco')->name('updateco');
+

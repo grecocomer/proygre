@@ -282,7 +282,7 @@ else
   
       }
   
-      // desactivar registros
+      // desactivar 
       //en esta funcion no cargan los estilos todo lo demas funciona bien
       public function eliminaproducto($id_prod)
       {
